@@ -59,7 +59,11 @@
             <span>{{video.cours.title}}</span>
          </div>
          <h3 class="title">{{video.title}}</h3>
-         <a href="{% url 'playlist' video.cours.id %}" class="inline-btn">view playlist</a>
+         {% if video.cours %}
+            <a href="{% url 'playlist' video.cours.id %}" class="inline-btn">view playlist</a>
+         {% else %}
+            <p>No course available for this video.</p>
+         {% endif %}
       </div>
       {% endfor %}
 
