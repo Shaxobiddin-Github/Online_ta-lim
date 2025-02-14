@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+   
+{% block content %}
+   <section class="playlist-details">
+      <h1 class="heading">Playlist Details</h1>
+      <div class="row">
+         <div class="column">
+            <div class="thumb">
+               <img src="{{ course.image.url }}" alt="">
+               <span>{{ course.videos.count }} videos</span>
+            </div>
+         </div>
+         <div class="column">
+            <div class="tutor">
+               <img src="{{ course.teacher.profile_picture.url }}" alt="">
+               <div>
+                  <h3>{{ course.teacher }}</h3>
+                  <span>{{ course.created_at }}</span>
+               </div>
+            </div>
+            <div class="details">
+               <h3>{{ course.title }}</h3>
+               <p>{{ course.description|slice:":100" }}...</p>
+
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="playlist-videos">
+      <h1 class="heading">Playlist Videos</h1>
+      <div class="box-container">
+         {% for video in course.videos.all %}
+         <a class="box" href="{% url 'watch_video' video.id %}">
+             <i class="fas fa-play"></i>
+             {% if video.images %}
+             <img src="{{ video.images.url }}" alt="{{ video.title }}">
+             {% else %}
+             <img src="{% static 'images/default-image.jpg' %}" alt="Default Image">
+             {% endif %}
+             <h3>{{ video.title }}</h3>
+         </a>
+         {% endfor %}
+      </div>
+   </section>
+
+   {% endblock content %}
+
+
+

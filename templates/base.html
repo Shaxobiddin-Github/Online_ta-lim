@@ -1,0 +1,180 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>CodeBloom</title>
+
+   <!-- font awesome cdn link  -->
+   {% include 'companents/_styles.html' %}
+
+   <style>
+      /* Umumiy form stili */
+      .search-form {
+          max-width: 500px; /* Formaning maksimal eni */
+          margin: 0 auto; /* Markazlash */
+          padding: 1rem;
+          border-radius: 30px; /* Yumshoq burchaklar */
+          background: rgba(255, 255, 255, 0.9); /* Shaffof fon */
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soya effekti */
+      }
+  
+      /* Input maydoni */
+      .search-form input {
+          border: none; /* Chegara yo'q */
+          background: transparent; /* Fon shaffof */
+          font-size: 1rem; /* Font hajmi */
+          padding: 0.5rem 1rem; /* Ichki bo'shliqlar */
+      }
+  
+      /* Tugma stili */
+      .search-form button {
+          border: none; /* Chegara yo'q */
+          background: #007bff; /* Rang */
+          color: white; /* Matn rangi */
+          padding: 0.5rem 1rem; /* Ichki bo'shliqlar */
+          border-radius: 50%; /* Doira shaklida */
+          width: 40px; /* Eni */
+          height: 40px; /* Balandligi */
+          display: flex; /* Ikonani markazlash */
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.3s ease; /* Hover effekti */
+      }
+  
+      /* Tugma hover effekti */
+      .search-form button:hover {
+          transform: scale(1.1); /* Kattalashish */
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soya effekti */
+      }
+  </style>
+
+
+</head>
+
+<header class="header">
+   
+   <section class="flex">
+
+      <a href="{% url 'home' %}" class="logo">Educa.</a>
+      {% if request.user.is_authenticated %}
+      <form action="{% url 'search_courses' %}" method="get" class="search-form d-flex align-items-center">
+         <!-- Qidiruv inputi -->
+         <input 
+             type="text" 
+             name="search_box" 
+             required 
+             placeholder="Kurslarni qidirish..." 
+             maxlength="100" 
+             class="form-control me-2" 
+             style="flex: 1;"
+         >
+         
+         <!-- Qidiruv tugmasi -->
+         <button type="submit" class="btn btn-primary">
+             <i class="fas fa-search"></i>
+         </button>
+     </form>
+      {% endif %}
+
+      <div class="icons">
+         <div id="menu-btn" class="fas fa-bars"></div>
+         <div id="search-btn" class="fas fa-search"></div>
+         <div id="user-btn" class="fas fa-user"></div>
+         <div id="toggle-btn" class="fas fa-sun"></div>
+      </div>
+
+      <div class="profile">
+         {% if request.user.is_authenticated %}
+         <img src="{{request.user.profile.profile_picture.url}}" class="image" alt="">
+            {%  if is_teacher %}
+               <h3 class="name">{{ request.user.first_name }}</h3>
+               <p class="role">Teacher</p>
+            {% else %}
+               <h3 class="name">{{ request.user.first_name }}</h3>
+               <p class="role">Student</p>
+            {% endif %}
+         {% else %}
+            <h2 style="color: brown;">Iltimos, tizimga kiring.</h2>
+         {% endif %}
+         {% if request.user.is_authenticated %}
+            {% if is_teacher %}
+            <a href="{% url 'teacher_profile' %}" class="btn">view profile</a>
+            {% else %}
+            <a href="{% url 'profile' %}" class="btn" >view profile</a>
+            {% endif %}
+         {% else %}
+            <h1>👇</h1>
+         {% endif %}
+            <div class="flex-btn">
+               {% if user.is_authenticated %}
+               <a href="{% url 'logout' %}"  class="option-btn">Logout</a>
+            {% else %}
+               <a href="{% url 'login' %}" class="option-btn">login</a>
+               <a href="{% url 'register' %}" class="option-btn">register</a>
+            {% endif %}
+            
+         </div>
+      </div>
+
+   </section>
+
+</header>   
+
+<div class="side-bar">
+
+   <div id="close-btn">
+      <i class="fas fa-times"></i>
+   </div>
+
+   <div class="profile">
+      
+   {% if request.user.is_authenticated %}
+      <img src="{{request.user.profile.profile_picture.url}}" class="image" alt="">
+         {%if is_teacher %}
+         <h3 class="name">{{ request.user.first_name }}</h3>
+         <p class="role">Teacher</p>
+         {% else %}
+         <h3 class="name">{{ request.user.first_name }}</h3>
+         <p class="role">Student</p>
+         {% endif %}
+      {% else %}
+      <h2 style="color: brown;">Iltimos, tizimga kiring.</h2>
+   {% endif %}
+      {% if request.user.is_authenticated %}
+         {% if is_teacher %}
+         <a href="{% url 'teacher_profile' %}" class="btn">view profile</a>
+         {% else %}
+         <a href="{% url 'profile' %}" class="btn" >view profile</a>
+         {% endif %}
+      {% else %}
+         <a href="{% url 'register' %}" class="btn">register</a>
+         <a href="{% url 'login' %}" class="btn">login</a>
+      {% endif %}
+      
+   </div>
+
+   <nav class="navbar">
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'home' %}"><i class="fas fa-home"></i><span>home</span></a>
+      <a href="{% url 'about' %}"><i class="fas fa-question"></i><span>about</span></a>
+      <a href="{% url 'courses' %}"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
+      <a href="{% url 'teachers' %}"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
+      <a href="{% url 'contact' %}"><i class="fas fa-headset"></i><span>contact us</span></a>
+      {% endif %}
+   </nav>
+
+</div>
+
+
+
+{% block content %}
+
+{% endblock content %}
+
+{% include 'companents/_footer.html' %}
+
+{% include 'companents/_scripts.html' %}

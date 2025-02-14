@@ -1,0 +1,171 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'qituvchi Profilini Yangilash</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome (ikonlar uchun) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <style>
+       .cart_etim{
+        background-color: rgb(36, 37, 37);
+        color: aliceblue;
+       }
+    </style>
+    <!-- Custom CSS -->
+    {% include 'companents/_styles.html' %}
+    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow cart_etim">
+                    <!-- Card header -->
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0"><i class="fas fa-user-edit me-2"></i>O'qituvchi Profilini Yangilash</h3>
+                    </div>
+    
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <!-- Tugmalar bloki -->
+                        <div class="d-flex justify-content-between mb-4">
+                            <a href="{% url 'home' %}" class="btn btn-outline-primary">
+                                <i class="fas fa-home me-1"></i> Bosh Sahifa
+                            </a>
+                            <a href="{% url 'teacher_profile' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-user me-1"></i> Profile
+                            </a>
+                        </div>
+    
+                        <!-- Forma -->
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+    
+                            <!-- Ism -->
+                            <div class="mb-3">
+                                <label for="id_first_name" class="form-label d-flex align-items-center">
+                                    <i class="fas fa-user me-2"></i> Ism:
+                                </label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <div class="text-danger small">{{ form.first_name.errors }}</div>
+                                {% endif %}
+                            </div>
+    
+                            <!-- Familiya -->
+                            <div class="mb-3">
+                                <label for="id_last_name" class="form-label d-flex align-items-center">
+                                    <i class="fas fa-user me-2"></i> Familiya:
+                                </label>
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                    <div class="text-danger small">{{ form.last_name.errors }}</div>
+                                {% endif %}
+                            </div>
+    
+                            <!-- Bio -->
+                            <div class="mb-3">
+                                <label for="id_bio" class="form-label d-flex align-items-center">
+                                    <i class="fas fa-pen me-2"></i> Bio:
+                                </label>
+                                {{ form.bio }}
+                                {% if form.bio.errors %}
+                                    <div class="text-danger small">{{ form.bio.errors }}</div>
+                                {% endif %}
+                            </div>
+    
+                            <!-- Mutaxassislik -->
+                            <div class="mb-3">
+                                <label for="id_expertise" class="form-label d-flex align-items-center">
+                                    <i class="fas fa-briefcase me-2"></i> Mutaxassislik:
+                                </label>
+                                {{ form.expertise }}
+                                {% if form.expertise.errors %}
+                                    <div class="text-danger small">{{ form.expertise.errors }}</div>
+                                {% endif %}
+                            </div>
+    
+                            <!-- Profil rasmi -->
+                            <div class="mb-3">
+                                <label for="id_profile_picture" class="form-label d-flex align-items-center">
+                                    <i class="fas fa-image me-2"></i> Profil rasmi:
+                                </label>
+                                {{ form.profile_picture }}
+                                {% if form.profile_picture.errors %}
+                                    <div class="text-danger small">{{ form.profile_picture.errors }}</div>
+                                {% endif %}
+                            </div>
+    
+                            <!-- Saqlash tugmasi -->
+                            <button type="submit" class="btn btn-success w-100 mt-4">
+                                <i class="fas fa-save me-2"></i> Saqlash
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CSS uslublari -->
+    <style>
+        /* Umumiy uslublar */
+        .cart_etim {
+            border-radius: 10px;
+        }
+    
+        .card-header {
+            border-radius: 10px 10px 0 0;
+        }
+    
+        .inline-btn {
+            text-decoration: none;
+            color: #fff;
+            margin-right: 10px;
+        }
+    
+        /* Forma inputlari uchun */
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 14px;
+        }
+    
+        /* Label uchun */
+        .form-label {
+            font-weight: 500;
+            font-size: 14px;
+        }
+    
+        /* Xatolik xabarlari uchun */
+        .text-danger {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    
+        /* Tugmalar uchun */
+        .btn {
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+    
+        /* Responsive uslublar */
+        @media (max-width: 768px) {
+            .d-flex.justify-content-between.mb-4 {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+    {% include 'companents/_scripts.html' %}
+{% endblock content %}

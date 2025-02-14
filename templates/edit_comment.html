@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+
+<style>
+    /* edit_comment.html styles */
+    form {
+        margin-top: 20px;
+    }
+    textarea {
+        margin-bottom: 20px;
+    }
+    button {
+        margin-top: 20px;
+    }
+    .error {
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-image: url('https://www.shutterstock.com/image-photo/calm-weather-on-sea-ocean-600nw-2212935531.jpg');
+    }
+</style>
+
+
+<!-- edit_comment.html -->
+<section>
+<h3 style="text-align: center; color: blueviolet;">Edit Your Comment</h3>
+
+{% if error %}
+    <p style="color: red; font-size: 14px; font-weight: bold; text-align: center;">{{ error }}</p>  <!-- Xatolik xabarini ko'rsatish -->
+{% endif %}
+
+<form method="POST" style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #6d4fd842; border-radius: 8px; background-color: #f9f9f9;">
+    {% csrf_token %}
+    <textarea name="comment_box" required  style="width: 100%; height: 150px; padding: 10px; border: 1px solid #1411be62; border-radius: 8px; font-size: 14px; resize: vertical; outline: none; background-color: rgba(255, 255, 255, 0.459); color: #000;""></textarea>
+    <div style="text-align: center; margin-top: 10px;">
+        <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: rgb(255, 255, 255); border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">
+            Save Changes
+        </button>
+    </div>
+</form>
+</section>
+{% endblock content %}

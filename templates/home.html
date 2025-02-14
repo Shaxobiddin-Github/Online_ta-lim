@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+
+
+
+<section class="home-grid">
+   
+   <h1 class="heading">quick options</h1>
+   
+   <div class="box-container">
+      
+   
+     
+
+      <div class="box">
+         <h3 class="title">top categories</h3>
+         <div class="flex">
+            <a href="#"><i class="fas fa-code"></i><span>development</span></a>
+            <a href="#"><i class="fas fa-chart-simple"></i><span>business</span></a>
+            <a href="#"><i class="fas fa-pen"></i><span>design</span></a>
+            <a href="#"><i class="fas fa-chart-line"></i><span>marketing</span></a>
+            <a href="#"><i class="fas fa-music"></i><span>music</span></a>
+            <a href="#"><i class="fas fa-camera"></i><span>photography</span></a>
+            <a href="#"><i class="fas fa-cog"></i><span>software</span></a>
+            <a href="#"><i class="fas fa-vial"></i><span>science</span></a>
+         </div>
+      </div>
+
+      <div class="box">
+         <h3 class="title">popular topics</h3>
+         <div class="flex">
+            {% for course in all_courses %}
+            <a href="{% url 'playlist' course.id %}"><i class="fab fa-html5"></i><span>{{course.title}}</span></a>
+            {% endfor %}
+
+         </div>
+      </div>
+
+      <div class="box">
+         <h3 class="title">become a tutor</h3>
+         <span>
+            <p class="likes">Total likes: <span>{{ total_likes }}</span></p>
+            <p class="likes">total comment: <span>{{ total_comments }}</span></p>
+         </span>
+         <p class="tutor">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, nam?</p>
+         <a href="{% url 'teachers' %}" class="inline-btn">get started</a>
+      </div>
+
+   </div>
+
+</section>
+
+<section class="courses">
+
+   <h1 class="heading">our courses</h1>
+
+   <div class="box-container">
+      {% for course in start_course %}
+      <div class="box">
+         <div class="tutor">
+            <img src="{{ course.teacher.profile_picture.url }}" alt="Teacher Picture">
+            <div class="info">
+               <h3>{{course.teacher}}</h3>
+               <span>{{course.created_at}}</span>
+            </div>
+         </div>
+         <div class="thumb">
+            <img src="{{ course.image.url }}" alt="Course Image">
+            <span>{{ course.videos.count }} videos</span>
+         </div>
+         <h3 class="title">{{course.title}}</h3>
+         <a href="{% url 'playlist' course_id=course.id %}" class="inline-btn">view playlist</a>
+      </div>
+      {% endfor %}
+      
+
+   </div>
+
+   <div class="more-btn">
+      <a href="{% url 'courses' %}" class="inline-option-btn">view all courses</a>
+   </div>
+   
+</section>
+
+{% endblock content %}

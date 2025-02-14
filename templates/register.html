@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<section class="form-container">
+
+   <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <p>Your Username <span>*</span></p>
+      <input type="text" name="username" placeholder="Enter your username" required maxlength="50" class="box">
+      
+      <p>Your Email <span>*</span></p>
+      <input type="email" name="email" placeholder="Enter your email" required maxlength="50" class="box">
+      
+      <p>Your Password <span>*</span></p>
+      <input type="password" name="password1" placeholder="Enter your password" required maxlength="20" class="box">
+      
+      <p>Confirm Password <span>*</span></p>
+      <input type="password" name="password2" placeholder="Confirm your password" required maxlength="20" class="box">
+      
+      <p>Select Profile Picture <span>*</span></p>
+      <input type="file" name="profile_picture" accept="image/*" required class="box">
+      
+      <input type="submit" value="Register" name="submit" class="btn">
+  </form>
+  
+
+</section>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+

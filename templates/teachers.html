@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="teachers">
+
+   <h1 class="heading">expert teachers</h1>
+
+   <form action="" method="post" class="search-tutor">
+      <input type="text" name="search_box" placeholder="search tutors..." required maxlength="100">
+      <button type="submit" class="fas fa-search" name="search_tutor"></button>
+   </form>
+
+   <div class="box-container">
+
+      <div class="box offer">
+         <h3>become a tutor</h3>
+         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, itaque ipsam fuga ex et aliquam.</p>
+         <a href="{% url 'register' %}" class="inline-btn">get started</a>
+      </div>
+      
+      {% for teachers in all_teachers %}
+      <div class="box">
+         <div class="tutor">
+            <!-- O'qituvchi rasmi -->
+            {% if teachers.profile_picture %}
+               <img src="{{ teachers.profile_picture.url }}" alt="Teacher Image" class="teacher-image">
+            {% else %}
+               <img src="https://cdn-icons-png.flaticon.com/512/924/924915.png" alt="Default Teacher Image" class="teacher-image">
+            {% endif %}
+            <div>
+               <h3>{{ teachers.user.first_name }}</h3>
+               <span>{{ teachers.expertise }}</span>
+            </div>
+         </div>
+         <p>Total playlists: <span>{{ teachers.total_playlists }}</span></p>
+         <p>Total videos: <span>{{ teachers.total_videos }}</span></p>
+         <p>Total likes: <span>{{ teachers.total_likes }}</span></p>
+         {% if teachers.id %}
+            <a href="{% url 'teacher_details' teachers.id %}" class="inline-btn">View Profile</a>
+         {% else %}
+            <span>Profile not available</span>
+         {% endif %}
+      </div>
+      {% endfor %}
+
+
+
+
+   </div>
+
+</section>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
